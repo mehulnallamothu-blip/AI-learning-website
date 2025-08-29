@@ -130,8 +130,8 @@ function Playground() {
 
 function ChatDemo() {
   const [messages, setMessages] = useState<{role:"system"|"user"|"assistant", content:string}[]>([
-    { role: "system", content: "You're chatting in the AI Learning playground." },
-  ]);
+  { role: "system", content: "You're chatting with a Finance & Math Tutor. Ask about compound interest, NPV/IRR, CAPM, options basics, probability, calculus, etc." },
+]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollerRef = useRef<HTMLDivElement>(null);
