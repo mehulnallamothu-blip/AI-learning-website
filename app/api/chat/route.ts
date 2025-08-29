@@ -29,11 +29,7 @@ export async function POST(req: Request) {
     const resp = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-<<<<<<< HEAD
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-=======
         "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
->>>>>>> 678e20dc3d942a0481c966c7c1342e4532cc98bf
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

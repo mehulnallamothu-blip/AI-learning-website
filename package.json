@@ -10,10 +10,8 @@
   },
   "dependencies": {
     "next": "14.2.5",
-    "openai": "^5.16.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "openai": "^4.0.0"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "autoprefixer": "10.4.18",
