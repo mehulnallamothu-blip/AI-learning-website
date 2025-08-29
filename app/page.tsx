@@ -130,8 +130,8 @@ function Playground() {
 
 function ChatDemo() {
   const [messages, setMessages] = useState<{role:"system"|"user"|"assistant", content:string}[]>([
-    { role: "system", content: "You're chatting in the AI Learning playground." },
-  ]);
+  { role: "system", content: "You're chatting with a Finance & Math Tutor. Ask about compound interest, NPV/IRR, CAPM, options basics, probability, calculus, etc." },
+]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -400,19 +400,34 @@ function Logo() {
 }
 
 // Backend integration shims
-async function callBackendChat(messages: {role:string, content:string}[]) {
-  const res = await fetch("/api/chat", { method: "POST", body: JSON.stringify({ messages }) });
-  if (!res.ok) throw new Error(res.statusText);
-  const data = await res.json(); return data.reply ?? JSON.stringify(data);
+async function callBackendChat(messages: { role: string; content: string }[]) {
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ messages }),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  const data = await res.json();
+  return data.reply ?? JSON.stringify(data);
 }
+
 async function callBackendText(prompt: string) {
-  const res = await fetch("/api/generate", { method: "POST", body: JSON.stringify({ prompt }) });
-  if (!res.ok) throw new Error(res.statusText);
-  const data = await res.json(); return data.text ?? JSON.stringify(data);
+  const res = await fetch("/api/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt }),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  const data = await res.json();
+  return data.text ?? JSON.stringify(data);
 }
+
 async function callBackendImage(file: File) {
-  const form = new FormData(); form.append("file", file);
+  const form = new FormData();
+  form.append("file", file);
   const res = await fetch("/api/classify", { method: "POST", body: form });
-  if (!res.ok) throw new Error(res.statusText);
-  const data = await res.json(); return data.label ?? JSON.stringify(data);
+  if (!res.ok) throw new Error(await res.text());
+  const data = await res.json();
+  return data.label ?? JSON.stringify(data);
 }
+
